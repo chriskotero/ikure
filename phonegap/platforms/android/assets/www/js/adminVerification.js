@@ -26,7 +26,15 @@ function showAdminOption(){
 function verifyAdmin() {
     console.log("verifyAdmin");
     
-    scriptName = "VerifyLogin.php";
+    var serverURL = window.localStorage.getItem("serverURL");
+    var scriptName = window.localStorage.getItem("verifyLoginScript");
+    
+    if (scriptName == null) {
+        console.log("error loading verifyAdmin script name");
+        window.localStorage.clear();
+        window.location = "index.html";
+    }
+    
     var user = document.getElementById("username").value;
     var pass = document.getElementById("password").value;
     

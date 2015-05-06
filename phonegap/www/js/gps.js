@@ -188,7 +188,7 @@ function sendLocation() {
     //send location if during tracking time
     
     if (stopTime < startTime) { //location tracking stopTime is midnight or later
-        if ((currentTime < stopTime && currentTime >= "0:00") || (currentTime >= startTime && currentTime <= "23:00")) {
+        if ((currentTime < stopTime && currentTime >= "0:00") || (currentTime >= startTime && currentTime <= "23:59")) {
             trackingOn();
             navigator.geolocation.getCurrentPosition(onSuccess, onError);   //get location
             console.log("sending location");
@@ -196,7 +196,6 @@ function sendLocation() {
         else {
             trackingOff();
             console.log("not tracking time");
-
         }
     }
     
@@ -208,7 +207,6 @@ function sendLocation() {
         }
         
         else {  //disable location tracking - clear timeInterval, set timeOut until startTime
-            /*implement if time allows*/
             trackingOff();
             console.log("not tracking time");
         }
@@ -226,8 +224,13 @@ function onSuccess(position) {
     console.log("latitude = " + latitude);
     console.log("longitude = " + longitude);
     
-    /*TODO send location to database*/
-    var scriptName = "SaveLocation.php";
+    var scriptName = window.localStorage.getItem("saveLocationScript");
+    
+    if (scriptName == null) {
+        console.log("error loading saveLocation script name");
+        window.localStorage.clear();
+        window.location = "index.html";
+    }
     
     checkConnection();
     

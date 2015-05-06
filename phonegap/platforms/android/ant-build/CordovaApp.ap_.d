@@ -45,6 +45,7 @@
 /Users/Mason/Sites/UserSites/SeniorDesign/mobile/ikure/platforms/android/assets/www/js/device.js \
 /Users/Mason/Sites/UserSites/SeniorDesign/mobile/ikure/platforms/android/assets/www/js/gps.js \
 /Users/Mason/Sites/UserSites/SeniorDesign/mobile/ikure/platforms/android/assets/www/js/index.js \
+/Users/Mason/Sites/UserSites/SeniorDesign/mobile/ikure/platforms/android/assets/www/js/serverVariables.js \
 /Users/Mason/Sites/UserSites/SeniorDesign/mobile/ikure/platforms/android/assets/www/plugins/org.apache.cordova.device \
 /Users/Mason/Sites/UserSites/SeniorDesign/mobile/ikure/platforms/android/assets/www/plugins/org.apache.cordova.network-information \
 /Users/Mason/Sites/UserSites/SeniorDesign/mobile/ikure/platforms/android/assets/www/plugins/org.apache.cordova.device/www \

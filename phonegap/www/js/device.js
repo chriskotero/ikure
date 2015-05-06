@@ -3,7 +3,7 @@
  * this information is stored both locally through internal storage and on the database
  * 
  */
-var serverURL = "http://students.engr.scu.edu/~mmaeshir/ikure/";
+//var serverURL = "http://students.engr.scu.edu/~mmaeshir/ikure/";
 var startTime;
 var stopTime;
 var updateFrequency = -1;
@@ -58,7 +58,13 @@ function onError(error) {
 function assignDevice(){
     console.log("Assign Device");
     
-    var scriptName = "AssignDevice.php";
+    var serverURL = window.localStorage.getItem("serverURL");
+    var scriptName = window.localStorage.getItem("assignDeviceScript");
+    
+    if (scriptName == null) {
+        console.log("error loading assignDevice script name");
+    }
+    
     firstName = document.getElementById('firstName').value;
     lastName = document.getElementById('lastName').value;
     startTime = document.getElementById('startTime').value;
@@ -98,7 +104,7 @@ function saveToLocalStorage(){
         window.localStorage.setItem("deviceID", deviceID);
         window.localStorage.setItem("firstName", firstName);
         window.localStorage.setItem("lastName", lastName);
-        window.localStorage.setItem("serverURL", serverURL);
+        //window.localStorage.setItem("serverURL", serverURL);
         window.localStorage.setItem("startTime", startTime);
         window.localStorage.setItem("stopTime", stopTime);
         window.localStorage.setItem("updateFrequency", updateFrequency);
@@ -108,7 +114,7 @@ function saveToLocalStorage(){
     console.log("deviceID: " + window.localStorage.getItem("deviceID"));
     console.log("firstName: " + window.localStorage.getItem("firstName"));
     console.log("lastName: " + window.localStorage.getItem("lastName"));
-    console.log("serverURL: " + window.localStorage.getItem("serverURL"));
+    //console.log("serverURL: " + window.localStorage.getItem("serverURL"));
     console.log("startTime: " + window.localStorage.getItem("startTime"));
     console.log("stopTime: " + window.localStorage.getItem("stopTime"));
     console.log("updateFrequency: " + window.localStorage.getItem("updateFrequency"));
