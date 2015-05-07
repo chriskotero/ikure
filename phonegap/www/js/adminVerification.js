@@ -28,7 +28,7 @@ function verifyAdmin() {
     
     var serverURL = window.localStorage.getItem("serverURL");
     var scriptName = window.localStorage.getItem("verifyLoginScript");
-    
+        
     if (scriptName == null) {
         console.log("error loading verifyAdmin script name");
         window.localStorage.clear();

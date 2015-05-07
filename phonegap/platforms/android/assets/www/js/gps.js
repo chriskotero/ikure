@@ -25,8 +25,6 @@ var longitude;
 
 var connected = false;
 
-//var bgGeo;  //object for background tracker
-
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
@@ -35,7 +33,6 @@ function onDeviceReady() {
     document.addEventListener("pause", onPause, false);
     document.addEventListener("resume", onResume, false);
     document.addEventListener("offline", onOffline, false);
-    //document.addEventListener("online", onOnline, false);
     
     checkConnection();
     loadFromInternalStorage();
@@ -43,12 +40,11 @@ function onDeviceReady() {
 
 function onPause() {
     console.log("app in background");   //android only, console.log does not work for iOS apps in background
-    //bgGeo.start();
 }
 
 function onResume() {
     console.log("app in foreground");
-    //bgGeo.stop();
+    refreshScreen();
 }
 
 function onOffline(){
@@ -104,74 +100,31 @@ function loadFromInternalStorage(){
         stop.innerHTML = stopTime;
         
         sendLocation(); //send initial location onDeviceReady if during update time
-        timeInterval = setInterval(function() {sendLocation()}, frequency); //initialize tracking intervals
-        //initBGTracker();    //starts bgGeo
+        timeInterval = setInterval(function() {sendLocation(true)}, frequency); //initialize tracking intervals
     }
 }
 
-/*
-//initializes, configures, and starts background tracker
-function initBGTracker() {
-    bgGeo = window.plugins.backgroundGeoLocation;
-    
-    //must execute at least one getCurrentPosition call for background tracker to work
-    navigator.geolocation.getCurrentPosition(function(location) {
-        console.log('Location from Phonegap');
-    });
-    
-    //configuring background location tracking
-    bgGeo.configure(callbackFn, failureFn, {
-        url: serverURL + "SaveBGLocation.php", //server URL to send location updates
-        params: {
-            deviceID: deviceID
-        },
-        headers: {
-            //none
-        },
-        locationTimeout: frequency, //sets minimum amount of time between location updates
-        desiredAccuracy: 10,
-        stationaryRadius: 20,
-        distanceFilter: 5,
-        notificationTitle: 'Background tracking',   //android only, customize notification title
-        notificationText: 'ENABLED',    //android only, customize notification text
-        activityType: 'AutomotiveNavigation',   //for iOS, options = AutomotiveNavigation, OtherNavigation, Fitness, and Other
-        debug: true,    //enable this to hear sounds for background-tracking life cycle
-        stopOnTerminate: false  //enable this to clear background location settings when the app terminates
-    });
-    
-    bgGeo.start();  //starts background tracker
-    console.log("background location tracker initialized");
-}
-*/
-
-/* TODO BACKGROUND LOCATION TRACKER */
-//still track location when app is in the background
-/*
-//callback for Ajax-requests after POSTing background location to server
-var yourAjaxCallback = function(response) {
-    bgGeo.finish(); //must stop running in background after location update is completed
+function trackingOn() {
+    var freqMinutes = frequency / (1000*60);
+    var trackingStatus = document.getElementById("trackingStatus");
+    trackingStatus.innerHTML = "Currently tracking location every " + freqMinutes + " minutes";
 }
 
-//callback to be executed every time a geolocation is recorded in the background
-//not executed in Android, since background tracking is done by a service, not running app code
-var callbackFn = function(location) {
-    updateCount++;
-    
-    console.log('BackgroundGeoLocation callback: location update = ' + updateCount);
-    
-    //HTTP request to POST location to server (iOS only, android POST done automatically from configure vars)
-    yourAjaxCallback.call(this);
+function trackingOff() {
+    var trackingStatus = document.getElementById("trackingStatus");
+    trackingStatus.innerHTML = "Not currently tracking location";
 }
 
-var failureFn = function(error){
-    console.log('BackgroundGeolocation error');
+function refreshScreen() {
+    sendLocation(false);
 }
-*/
 
-/* FOREGROUND LOCATION TRACKER */
+/* LOCATION TRACKER */
 
 //sends location to server after specified interval (if app is visible)
-function sendLocation() {
+    //if sendLoc == true, location is sent to database
+    //if sendLoc == false, location is not sent, but tracking status is updated
+function sendLocation(sendLoc) {
     var d = new Date();
     var h = d.getHours();
     if (h < 10) {
@@ -186,24 +139,26 @@ function sendLocation() {
     console.log("currentTime = " + currentTime);
     
     //send location if during tracking time
-    
     if (stopTime < startTime) { //location tracking stopTime is midnight or later
         if ((currentTime < stopTime && currentTime >= "0:00") || (currentTime >= startTime && currentTime <= "23:59")) {
             trackingOn();
-            navigator.geolocation.getCurrentPosition(onSuccess, onError);   //get location
-            console.log("sending location");
+            if(sendLoc){
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);   //get location
+                console.log("sending location");
+            }
         }
         else {
             trackingOff();
             console.log("not tracking time");
         }
     }
-    
     else {
         if (currentTime >= startTime && currentTime < stopTime) { //stopTime is before midnight
             trackingOn();
-            window.navigator.geolocation.getCurrentPosition(onSuccess, onError);   //get location
-            console.log("sending location");
+            if(sendLoc){
+                window.navigator.geolocation.getCurrentPosition(onSuccess, onError);   //get location
+                console.log("sending location");
+            }
         }
         
         else {  //disable location tracking - clear timeInterval, set timeOut until startTime
@@ -214,7 +169,7 @@ function sendLocation() {
 }
 
 // onSuccess Geolocation
-//
+    //called after location is acquired
 function onSuccess(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
@@ -242,14 +197,6 @@ function onSuccess(position) {
                 longitude: longitude
             },
             function(data){
-                //DEBUGGING PURPOSES
-                /*
-                var ul = document.getElementById("resultList");
-                var li = document.createElement("li");
-                li.appendChild(document.createTextNode(data));
-                ul.appendChild(li);
-                */
-                
                 if (data == 0) {   //success sending location
                     console.log("location successfully sent");
                 }
@@ -268,19 +215,8 @@ function onSuccess(position) {
 }
 
 // onError Callback receives a PositionError object
-//  print error message, then just wait until next location update
+    // print error message, then just wait until next location update
 function onError(error) {
     console.log('code: '    + error.code    + '\n' +
         'message: ' + error.message + '\n');    
-}
-
-function trackingOn() {
-    var freqMinutes = frequency / (1000*60);
-    var trackingStatus = document.getElementById("trackingStatus");
-    trackingStatus.innerHTML = "Currently tracking location every " + freqMinutes + " minutes";
-}
-
-function trackingOff() {
-    var trackingStatus = document.getElementById("trackingStatus");
-    trackingStatus.innerHTML = "Not currently tracking location";
 }
