@@ -152,24 +152,18 @@ color: #5E5E5E;
 	font-family: Myriad Pro, Times New Roman, Verdana;
 	border: 1px solid black;
 	margin-bottom: 42px;
-	
 }
 
-
 #createAccountRight { 
-
 	width: 40%;
 	float: right;
 	margin-right: 20px;
-
-
 }
 
 #createAccountLeft{
 	width: 40%;
 	float: left;
 	margin-left: 20px;
-
 }
 
 
@@ -180,15 +174,12 @@ color: #5E5E5E;
 	margin-left: 55%;
 }
 
-
-
 #nav ul li {
 	margin-top: 5px;
 	display: inline-block;
 	z-index: 899;
 	margin-left: 2px;	
 }
-
 
 #nav ul li a,visited {
 	color: #DFDFDF;
@@ -204,7 +195,6 @@ color: #5E5E5E;
 	text-decoration: none;
 	z-index: 500;
 	border-radius: 5px;
-	
 }
 
 #nav ul ul{
@@ -213,16 +203,16 @@ color: #5E5E5E;
 	background-color: white;
 	z-index: 440;
 }
+
 #nav ul ul li {
 	display: block;
 	z-index: 420;
 
 }
+
 #nav ul ul li a, visited {
 	color: black;
 	z-index: 410;
-
-	
 }
 
 /*********end of horizontal nav bar ******************/
@@ -293,7 +283,7 @@ padding-top: 15px;
 
 #listContent {
 	width: 100%;
-	height: 90%;
+	height: 85%;
 	margin-left: 1%;
 	margin-right: 1%;
 	overflow-y: scroll;
@@ -308,6 +298,30 @@ padding-top: 15px;
 .listChoiceNotSelected {
 	color: #DFDFDF;
 	background: url('img/listChoiceNotSelected.png') right no-repeat;
+}
+
+.locateList {
+	font-size: large;
+	width: 95%;
+	overflow: hidden;
+	margin: 1%;
+	padding: 5px;
+	position: relative;
+	border-bottom: thin solid gray;
+}
+
+.locateInfo {
+	float: left;
+	padding: 3px;
+}
+
+.locateSubmit {
+	border-radius: 5px;
+	cursor: pointer;
+	margin: 3px;
+	float: right;
+	padding: 5px;
+	background: rgba(0,102,0,.75);
 }
  
 /********************END LIST PAGE***********************/

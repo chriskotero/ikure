@@ -3,6 +3,8 @@ $(document).ready(function() {
     
     $("#listWorkers").addClass("listChoiceSelected");
     $("#locateWorkers").addClass("listChoiceNotSelected");
+    
+    listWorkers();
 });
 
 function checkID(){
@@ -18,7 +20,11 @@ function checkID(){
 var map;	//google map variable
 var drawingManager;	//draw on map overlay
 var workerArray = [];   //initialize array
+var markerArray = [];   //initialize array to store googleMaps markers
+var infowindowArray = [];   //initialize array to store info windows for each marker
+var currentInfoWindowIndex = -1;  //used when locating workers, keeps track of current opened info window to close when another is opened
 
+//creates a worker object that stores the deviceID, first name, last name, and current location for a worker
 function Worker(id, first, last, lat, long){
     this.ID = id;
     this.firstName = first;
@@ -51,7 +57,7 @@ function initialize() {
         zoom: 6
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    sendRequest();	//pull health worker locations
+    //sendRequest();	//pull health worker locations
 }
 
 // Function for adding a marker to the page.
@@ -74,11 +80,28 @@ function addMarker(location, id, first, last) {
         map: map
     });
     
+    marker.setValues({type: "point", id: id});
+
+    markerArray.push(marker);
+    infowindowArray.push(infowindow);
+    
+    //can hover over marker to get info
     google.maps.event.addListener(marker, 'mouseover', function() {
         infowindow.open(map,this);
     });
+
     google.maps.event.addListener(marker, 'mouseout', function() {
         infowindow.close(map,this);
+    });
+    
+    google.maps.event.addListener(marker, 'click', function() {
+        //console.log(infowindow.getMap());
+        if (infowindow.getMap() != null) {
+            infowindow.close(map,this);
+        }
+        else {
+            infowindow.open(map,this);
+        }
     });
 }
 
@@ -87,10 +110,10 @@ google.maps.event.addDomListener(window, 'load', initialize);	//initialize map o
 //draws marker on map
 function drawMarker(worker){
     //var workerLatLng = new google.maps.LatLng(worker.getLatitude(),worker.getLongitude());
-    addMarker(new google.maps.LatLng(worker.getLatitude(), worker.getLongitude()),
-        worker.getID(),
-        worker.getFirstName(),
-        worker.getLastName());
+    addMarker(new google.maps.LatLng(worker.latitude, worker.longitude),
+        worker.ID,
+        worker.firstName,
+        worker.lastName);
 }
   
 //breaks down script response string
@@ -106,21 +129,16 @@ function parseResponse(responseString){
             responseTokens[i+4]	//worker longitude
         );
         workerArray.push(tempWorker);	//save worker to workerArray
-        
-        //for debugging
-        /*
-        console.log(responseTokens[i]);
-        console.log(responseTokens[i+1]);
-        console.log(responseTokens[i+2]);
-        console.log(responseTokens[i+3]);
-        console.log(responseTokens[i+4]);
-        */
     }
     
-    // CREATE MARKERS FOR WORKERS //		    
+    // CREATE MARKERS FOR WORKERS //
+    /*
     for(var i=0; i<workerArray.length; i++){
         drawMarker(workerArray[i]);
     }
+    */
+    
+    saveWorkers();
 }
 
 function sendRequest()
@@ -164,7 +182,7 @@ $(function() {	//handles logout
             $("#listWorkers").addClass("listChoiceSelected");
             $("#locateWorkers").addClass("listChoiceNotSelected");
             
-            //list workers
+            listWorkers(); //list workers
         });
         
         $("#locateWorkers").on("click", function() {
@@ -174,5 +192,74 @@ $(function() {	//handles logout
             $("#listWorkers").addClass("listChoiceNotSelected");
             
             //locate workers
+            locateWorkers();
         });
 });
+
+function saveWorkers() {
+    window.localStorage.setItem("workerArray", JSON.stringify(workerArray));
+}
+
+function listWorkers() {
+    
+}
+
+function locateWorkers() {
+    sendRequest();
+    
+    var workerArray = JSON.parse(window.localStorage.getItem("workerArray"));
+    //console.log(workerArray);
+    var listContent = document.getElementById("listContent");
+    
+    listContent.innerHTML = "";
+    
+    for(var i=0; i<workerArray.length; i++){
+        var tempWorker = workerArray[i];
+        
+        drawMarker(tempWorker);
+
+        var div = document.createElement("div");
+        div.className = "locateList";
+        
+        var infoDiv = document.createElement("div");
+        infoDiv.className = "locateInfo";
+        infoDiv.innerHTML = tempWorker.ID + ": " + tempWorker.lastName + ", " + tempWorker.firstName;
+        var locateDiv = document.createElement("div");
+        locateDiv.className = "locateSubmit";
+        locateDiv.id = "locate"+tempWorker.ID;
+        locateDiv.innerHTML = "Locate";
+        locateDiv.onclick = locateWorker(tempWorker.ID);
+        
+        div.appendChild(infoDiv);
+        div.appendChild(locateDiv);
+        
+        listContent.appendChild(div);
+    }
+}
+
+function locateWorker(index) {
+    //console.log(index);
+    return function() {
+        //console.log(index + " clicked");
+        for(var i = 0; i<markerArray.length; i++){
+            //console.log(markerArray[i].get("id"));
+            if (markerArray[i].get("id") == index) {
+                console.log("currentInfoWindowIndex = " + currentInfoWindowIndex);
+                if (currentInfoWindowIndex == i) {
+                    google.maps.event.trigger(markerArray[i], "click");
+                    currentInfoWindowIndex = -1;
+                }
+                else if(currentInfoWindowIndex < 0) {
+                    google.maps.event.trigger(markerArray[i], "click");
+                    currentInfoWindowIndex = i;
+                }
+                else if (currentInfoWindowIndex >= 0) {
+                    google.maps.event.trigger(markerArray[currentInfoWindowIndex], "click");
+                    google.maps.event.trigger(markerArray[i], "click");
+                    currentInfoWindowIndex = i;
+                }
+                break;
+            }
+        }
+    }
+}
