@@ -131,43 +131,22 @@ function parseResponse(responseString){
         workerArray.push(tempWorker);	//save worker to workerArray
     }
     
-    // CREATE MARKERS FOR WORKERS //
-    /*
-    for(var i=0; i<workerArray.length; i++){
-        drawMarker(workerArray[i]);
-    }
-    */
-    
     saveWorkers();
 }
 
-function sendRequest()
+function sendLocationRequest()
 {
     var scriptName = window.localStorage.getItem("getAllLocationsScript");
     var serverURL = window.localStorage.getItem("serverURL");
     
-    var xmlhttp;
-    if (window.XMLHttpRequest)
-    {// code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp=new XMLHttpRequest();
-    }
-    else
-    {// code for IE6, IE5
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    
-    xmlhttp.onreadystatechange=function()
-    {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
-        {
-            //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-            parseResponse(xmlhttp.responseText);
-        }
-    }
-    xmlhttp.open("POST",serverURL+scriptName,true);
-    
-    var data = new FormData();
-    xmlhttp.send(data);
+    $.post(serverURL+scriptName, {},
+        function(data){
+            //console.log(data);
+            if (data != -1) {   //locations aquired
+                parseResponse(data);
+                locateWorkers();
+            }
+    });
 }
 
 $(function() {	//handles logout
@@ -186,13 +165,17 @@ $(function() {	//handles logout
         });
         
         $("#locateWorkers").on("click", function() {
+            //$("#listContent").html("");
+            $("#loading").show();
+            
             $("#locateWorkers").removeClass("listChoiceNotSelected");
             $("#listWorkers").removeClass("listChoiceSelected");
             $("#locateWorkers").addClass("listChoiceSelected");
             $("#listWorkers").addClass("listChoiceNotSelected");
             
             //locate workers
-            locateWorkers();
+            sendLocationRequest().done($("loading").hide());
+            //locateWorkers();
         });
 });
 
@@ -205,16 +188,15 @@ function listWorkers() {
 }
 
 function locateWorkers() {
-    sendRequest();
-    
-    var workerArray = JSON.parse(window.localStorage.getItem("workerArray"));
-    //console.log(workerArray);
+    //sendRequest();
+
+    var workerArray2 = JSON.parse(window.localStorage.getItem("workerArray"));
     var listContent = document.getElementById("listContent");
     
     listContent.innerHTML = "";
     
-    for(var i=0; i<workerArray.length; i++){
-        var tempWorker = workerArray[i];
+    for(var i=0; i<workerArray2.length; i++){
+        var tempWorker = workerArray2[i];
         
         drawMarker(tempWorker);
 
