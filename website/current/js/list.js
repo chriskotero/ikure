@@ -1,10 +1,22 @@
+var map;	//google map variable
+var mapDisplay; //true if map is being displayed, false otherwise
+var drawingManager;	//draw on map overlay
+var workerArray = [];   //initialize array
+var markerArray = [];   //initialize array to store googleMaps markers
+var infowindowArray = [];   //initialize array to store info windows for each marker
+var currentInfoWindowIndex = -1;  //used when locating workers, keeps track of current opened info window to close when another is opened
+
+
+//google.maps.event.addDomListener(window, 'load', initialize);	//initialize map on window load
+
 $(document).ready(function() {
     checkID()
     
     $("#listWorkers").addClass("listChoiceSelected");
     $("#locateWorkers").addClass("listChoiceNotSelected");
     
-    listWorkers();
+    visitInit();
+    sendLocationRequest("list");
 });
 
 function checkID(){
@@ -16,13 +28,6 @@ function checkID(){
     }
     else window.location="index.html";	//cookie doesn't exist, redirect to login page
 }
-
-var map;	//google map variable
-var drawingManager;	//draw on map overlay
-var workerArray = [];   //initialize array
-var markerArray = [];   //initialize array to store googleMaps markers
-var infowindowArray = [];   //initialize array to store info windows for each marker
-var currentInfoWindowIndex = -1;  //used when locating workers, keeps track of current opened info window to close when another is opened
 
 //creates a worker object that stores the deviceID, first name, last name, and current location for a worker
 function Worker(id, first, last, lat, long){
@@ -51,13 +56,20 @@ function Worker(id, first, last, lat, long){
 
 // Standard google maps function
 function initialize() {
-    //var myLatlng = new google.maps.LatLng(40.779502, -73.967857);
     var mapOptions = {
         center: { lat: 22.501446, lng: 88.361675},    //iKure headquarters location
         zoom: 6
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    //sendRequest();	//pull health worker locations
+}
+
+// Custom centered location
+function customInitialize(latitude, longitude){
+    var mapOptions = {
+        center: { lat: latitude, lng: longitude},    //iKure headquarters location
+        zoom: 15
+    };
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
 }
 
 // Function for adding a marker to the page.
@@ -105,8 +117,6 @@ function addMarker(location, id, first, last) {
     });
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);	//initialize map on window load
-
 //draws marker on map
 function drawMarker(worker){
     //var workerLatLng = new google.maps.LatLng(worker.getLatitude(),worker.getLongitude());
@@ -115,10 +125,60 @@ function drawMarker(worker){
         worker.firstName,
         worker.lastName);
 }
-  
+
+//only for plotting visit markers
+function addVisitMarker(location, time){
+    var contentString =
+        '<div id="content">'+
+            '<div id="siteNotice">'+'</div>'+
+            '<div id="bodyContent">'+
+                '<p>Location Sent At ' + time + '</p>'+
+            '</div>'+
+        '</div>';
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+    
+    marker = new google.maps.Marker({
+        position: location,
+        icon: "img/visitMarkerIcon.png",
+        map: map
+    });
+        
+    //can hover over marker to get info
+    google.maps.event.addListener(marker, 'mouseover', function() {
+        infowindow.open(map,this);
+    });
+
+    google.maps.event.addListener(marker, 'mouseout', function() {
+        infowindow.close(map,this);
+    });
+}
+
+//plotting visit
+function plotVisit(locations){
+    var flightPlanCoordinates = [];
+    for(var i=0; i<locations.length; i++){
+        addVisitMarker(new google.maps.LatLng(Number(locations[i]["latitude"]), Number(locations[i]["longitude"])), locations[i]["time"]);
+        flightPlanCoordinates.push(new google.maps.LatLng(Number(locations[i]["latitude"]), Number(locations[i]["longitude"])));
+    }
+    
+    var flightPath = new google.maps.Polyline({
+        path: flightPlanCoordinates,
+        geodesic: true,
+        strokeColor: '#259325',
+        strokeOpacity: 1.0,
+        strokeWeight: 4
+    });
+
+    flightPath.setMap(map);
+}
 //breaks down script response string
-function parseResponse(responseString){
+function parseLocationResponse(responseString){
     var responseTokens = responseString.split(",");
+    
+    workerArray = [];
     
     for(var i=0; i<responseTokens.length; i=i+5){
         var tempWorker = new Worker(
@@ -134,48 +194,220 @@ function parseResponse(responseString){
     saveWorkers();
 }
 
-function sendLocationRequest()
-{
+function sendLocationRequest(option) {
     var scriptName = window.localStorage.getItem("getAllLocationsScript");
     var serverURL = window.localStorage.getItem("serverURL");
-    
-    $.post(serverURL+scriptName, {},
-        function(data){
-            //console.log(data);
-            if (data != -1) {   //locations aquired
-                parseResponse(data);
-                locateWorkers();
-            }
-    });
+    if (workerArray.length == 0) {  //only pull request from db on first load (or refresh)
+        $.post(serverURL+scriptName, {},
+            function(data){
+                //console.log(data);
+                if (data != -1) {   //locations aquired
+                    parseLocationResponse(data);
+                    if(option == "list") {
+                        listWorkers();
+                    }
+                    else if(option == "locate") {
+                        locateWorkers();
+                    }
+                }
+        });
+    }
+    else {
+        if (option == "list") {
+            listWorkers();
+        }
+        else if (option == "locate") {
+            locateWorkers();
+        }
+    }
 }
 
-$(function() {	//handles logout
+function sendVisitsRequest(id, first, last) {
+    var scriptName = window.localStorage.getItem("getWorkerVisitsScript");
+    var serverURL = window.localStorage.getItem("serverURL");
+    
+    var worker = JSON.parse(window.localStorage.getItem("worker"+id));
+    
+    if (worker == null || (worker != null && (worker["firstName"] != first || worker["formattedLocations"] == null))) {   //only pull worker visit info if not already stored
+        $.post(serverURL+scriptName,
+            {
+                workerID: id,
+                firstName: first,
+                lastName: last
+            },
+            function(data){
+                if (data != -1) {   //locations aquired
+                    parseWorkerVisitResponse(id, first, last, data);
+                    displayWorkerVisit(id, true);
+                }
+                else {
+                    worker = {firstName: first, lastName: last, date: null};
+                    window.localStorage.setItem("worker"+id, JSON.stringify(worker));
+                    displayWorkerVisit(id, false);
+                }
+        });
+    }
+    else {
+        console.log("already stored");
+        displayWorkerVisit(id, true);
+    }
+}
+
+function parseWorkerVisitResponse(id, first, last, data){
+    var workerVisits = JSON.parse(data);
+    //console.log(workerVisits);
+    
+    var worker = {
+        firstName: first,
+        lastName: last,
+        formattedLocations: []
+    };
+    
+    var locations = []; //will hold all visit data
+    
+    for (var i=0; i<workerVisits.length; i++) {
+        //console.log(i);
+        var location = {};
+        location["date"] = workerVisits[i]["date"];
+        location["latitude"] = workerVisits[i]["latitude"];
+        location["longitude"] = workerVisits[i]["longitude"];
+        location["time"] = workerVisits[i]["time"];
+
+        locations.push(location);
+    }
+        
+    /* now sort location data by day */
+    
+    var date = "";
+    var allLocations = [];
+    
+    var i = 0;
+    var count = 0;
+    
+    while(i < locations.length){
+        if (date == locations[i]["date"]) {
+            allLocations[count-1]["locations"].push({
+                time: locations[i]["time"],
+                longitude: locations[i]["longitude"],
+                latitude: locations[i]["latitude"]
+            });
+        }
+        else {
+            date = locations[i]["date"];
+            allLocations.push({
+                date: date,
+                locations: [
+                    {
+                        time: locations[i]["time"],
+                        longitude: locations[i]["longitude"],
+                        latitude: locations[i]["latitude"]
+                    }
+                ]
+            });
+            count++;
+        }
+        
+        i++;
+    }
+    
+    worker["formattedLocations"] = allLocations;
+    
+    window.localStorage.setItem("worker"+id, JSON.stringify(worker));   //save worker visit info
+}
+
+function displayWorkerVisit(id, notEmpty){    
+    var worker = JSON.parse(window.localStorage.getItem("worker"+id));
+    
+    var workerDiv = document.getElementById("worker");
+    workerDiv.innerHTML = "";
+        
+    var title = document.createElement("h1");
+    title.innerHTML = "Worker: " + worker["firstName"] + " " + worker["lastName"];
+    
+    var content = document.createElement("div");
+    content.id = "visitContent";
+    
+    if (notEmpty == true) {
+        var selectTitle = document.createElement("h2");
+        selectTitle.innerHTML = "Select one of the available dates to view that day's location data:";
+        content.appendChild(selectTitle);
+        
+        for(var i=0; i<worker["formattedLocations"].length; i++){
+            var dateButton = document.createElement("div");
+            dateButton.className = "dateSelect";
+            dateButton.innerHTML = worker["formattedLocations"][i]["date"];
+            dateButton.onclick = toggleVisit(worker["formattedLocations"][i]);
+            content.appendChild(dateButton);
+        }
+    }
+    else {
+        content.innerHTML = "<p>No location data stored in the past week</p>";
+    }
+    
+    workerDiv.appendChild(title);
+    workerDiv.appendChild(content);
+    
+    if (mapDisplay == true) {
+        $("#map").hide();
+        $("#worker").show();
+        mapDisplay = false;
+    }
+}
+
+function toggleVisit(visit){
+    return function() {
+        console.log(mapDisplay);
+        if (mapDisplay == false) {
+            $("#worker").hide();
+            $("#map").show();
+            mapDisplay = true;
+            showVisit(visit);
+        }
+        else {
+            $("#map").hide();
+            $("#worker").show();
+            mapDisplay = false;
+        }
+    }
+}
+
+function showVisit(visit){
+    console.log(visit);
+    
+    customInitialize(Number(visit["locations"][0]["latitude"]), Number(visit["locations"][0]["longitude"]));
+    plotVisit(visit["locations"]);
+}
+
+$(function() {	//handles menu selections
         $("#logout").on("click",function() {
             window.localStorage.clear();
             window.location = "index.html";
         });
         
+        $("create").on("click", function() {
+            window.location = "createAccount.html";
+        });
+        
         $("#listWorkers").on("click", function() {
+            visitInit();
+            
             $("#listWorkers").removeClass("listChoiceNotSelected");
             $("#locateWorkers").removeClass("listChoiceSelected");
             $("#listWorkers").addClass("listChoiceSelected");
             $("#locateWorkers").addClass("listChoiceNotSelected");
             
-            listWorkers(); //list workers
+            sendLocationRequest("list");
         });
         
         $("#locateWorkers").on("click", function() {
-            //$("#listContent").html("");
-            $("#loading").show();
+            locateInit();
             
             $("#locateWorkers").removeClass("listChoiceNotSelected");
             $("#listWorkers").removeClass("listChoiceSelected");
             $("#locateWorkers").addClass("listChoiceSelected");
             $("#listWorkers").addClass("listChoiceNotSelected");
             
-            //locate workers
-            sendLocationRequest().done($("loading").hide());
-            //locateWorkers();
+            sendLocationRequest("locate");
         });
 });
 
@@ -183,17 +415,83 @@ function saveWorkers() {
     window.localStorage.setItem("workerArray", JSON.stringify(workerArray));
 }
 
-function listWorkers() {
+
+/** LIST HEALTH WORKERS OPTION **/
+
+function visitInit() {
+    $("#loading").show();
+      
+    var workerDiv = document.getElementById("worker");
+    workerDiv.id = "worker";
+    workerDiv.innerHTML = "<h1>Select a worker from the list to view his/her visits from the past week</h1>";
     
+    if (mapDisplay == true) {
+        $("#map").hide();
+        $("#worker").show();
+        mapDisplay = false;
+    }
 }
 
-function locateWorkers() {
-    //sendRequest();
-
-    var workerArray2 = JSON.parse(window.localStorage.getItem("workerArray"));
-    var listContent = document.getElementById("listContent");
+function listWorkers() {
+    $("#loading").hide();
     
-    listContent.innerHTML = "";
+    var workerArray2 = JSON.parse(window.localStorage.getItem("workerArray"));
+    var content = document.getElementById("content");
+    
+    content.innerHTML = "";
+    
+    for(var i=0; i<workerArray2.length; i++){
+        var tempWorker = workerArray2[i];
+        
+        var div = document.createElement("div");
+        div.className = "listList";
+        
+        var infoDiv = document.createElement("div");
+        infoDiv.className = "listInfo";
+        infoDiv.innerHTML = tempWorker.ID + ": " + tempWorker.lastName + ", " + tempWorker.firstName;
+        var listDiv = document.createElement("div");
+        listDiv.className = "listSubmit";
+        listDiv.id = "list"+tempWorker.ID;
+        listDiv.innerHTML = "View Visits";
+        listDiv.onclick = listVisits(tempWorker.ID, tempWorker.firstName, tempWorker.lastName);
+        
+        div.appendChild(infoDiv);
+        div.appendChild(listDiv);
+        
+        content.appendChild(div);
+    }
+}
+
+function listVisits(id, first, last) {
+    return function() {
+        console.log(id);        
+        getVisits(id, first, last);
+    }
+}
+
+function getVisits(id, first, last) {
+    sendVisitsRequest(id, first, last);
+}
+
+/** LOCATE HEALTH WORKERS OPTION **/
+
+function locateInit() {
+    $("#loading").show();
+    if (mapDisplay == false) {
+        $("#map").show();
+        $("#worker").hide();
+        mapDisplay = true;
+    }
+    initialize();   //initialize google map
+}
+
+function locateWorkers() {    
+    $("#loading").hide();
+    
+    var workerArray2 = JSON.parse(window.localStorage.getItem("workerArray"));
+    var listContent = document.getElementById("content");
+    
+    content.innerHTML = "";
     
     for(var i=0; i<workerArray2.length; i++){
         var tempWorker = workerArray2[i];
@@ -215,7 +513,7 @@ function locateWorkers() {
         div.appendChild(infoDiv);
         div.appendChild(locateDiv);
         
-        listContent.appendChild(div);
+        content.appendChild(div);
     }
 }
 

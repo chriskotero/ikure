@@ -1,8 +1,9 @@
 html, body {
 margin: 0;
 font-family: Arial, Helvetica, sans-serif;
-height: 100%;
+
 }
+
 
 /*********************homepage**********************/
 
@@ -248,30 +249,16 @@ padding-top: 15px;
 	/*overflow-y: auto;*/
 }
 
-#container {
-	position: relative;
-	overflow: hidden;
-	transform: translateZ(0px);
-	background-color: rgb(229, 227, 223);
-    width: 50%;
-	height: 70%;
-  	margin-bottom: 80px;
-    margin-top: 4%;
-  	margin-left: 4%;
-    margin-right:8%;
-    box-shadow: 10px 10px 15px black;
-	text-align: center;
-}
-
 #map {
-	height: 100%;
-	width: 100%;
-}
-
-#worker {
-	height: 100%;
-	width: 100%;
-}
+        width: 50%;
+        height: 70%;
+      	margin-bottom: 80px;
+      	margin-top: 4%;
+      	margin-left: 4%;
+      	margin-right:8%;
+      	box-shadow: 10px 10px 15px black;
+    
+      }
  
 .listChoicesBar {
 }
@@ -333,7 +320,7 @@ padding-top: 15px;
 	max-height: 30%;
 }
 
-.locateList, .listList {
+.locateList {
 	font-size: large;
 	width: 95%;
 	overflow: hidden;
@@ -343,46 +330,18 @@ padding-top: 15px;
 	border-bottom: thin solid gray;
 }
 
-.locateInfo, .listInfo {
+.locateInfo {
 	float: left;
 	padding: 3px;
 }
 
-.locateSubmit, .listSubmit, .dateSelect {
+.locateSubmit {
 	border-radius: 5px;
 	cursor: pointer;
 	margin: 3px;
-	padding: 5px;
-	background: rgba(0,102,0,.75);
-}
-
-.locateSubmit:hover, .listSubmit:hover, .dateSelect:hover {
-	border-radius: 5px;
-	cursor: pointer;
-	margin: 3px;
-	padding: 5px;
-	background: rgba(0,102,0,.75);
-	color: #DFDFDF;
-}
-
-.locateSubmit, .listSubmit, .locateSubmit:hover, .listSubmit:hover {
 	float: right;
-}
-
-.dateSelect, .dateSelect:hover {
-	margin: 5px auto;
-	width: 30%;
 	padding: 5px;
-	font-weight: bold;
-	font-size: medium;
-	text-align: center;
-}
-.dateSelect:hover {
-	font-size: larger;
-}
-#visitContent {
-	margin: 10px;
-	text-align: left;
+	background: rgba(0,102,0,.75);
 }
  
 /********************END LIST PAGE***********************/
