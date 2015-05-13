@@ -2,6 +2,7 @@ var map;	//google map variable
 var mapDisplay; //true if map is being displayed, false otherwise
 var drawingManager;	//draw on map overlay
 var workerArray = [];   //initialize array
+var searchArray = [];   //initialize array to search
 var markerArray = [];   //initialize array to store googleMaps markers
 var infowindowArray = [];   //initialize array to store info windows for each marker
 var currentInfoWindowIndex = -1;  //used when locating workers, keeps track of current opened info window to close when another is opened
@@ -190,6 +191,8 @@ function parseLocationResponse(responseString){
         );
         workerArray.push(tempWorker);	//save worker to workerArray
     }
+    
+    searchArray = JSON.parse(JSON.stringify(workerArray));  //initialize searchArray
     
     saveWorkers();
 }
@@ -415,6 +418,33 @@ function saveWorkers() {
     window.localStorage.setItem("workerArray", JSON.stringify(workerArray));
 }
 
+//search bar algorithm
+function searchAndDisplay(displayOption){
+    return function() {
+        var searchOption = $('input[name=searchChoice]:checked').val();
+        var query = document.getElementById("search").value;
+        var queryLength = query.length;
+        
+        var searchArray = JSON.parse(window.localStorage.getItem("workerArray"));
+
+        if (query != "") {
+            for(var i=searchArray.length-1; i>=0; i--){
+                var term = searchArray[i][searchOption];
+
+                if (term.length < queryLength || query.toUpperCase() != term.substr(0, queryLength).toUpperCase()) {
+                    searchArray.splice(i, 1);
+                }
+            }
+        }
+        
+        if (displayOption == "locate") {
+            locateWorkerHelper(searchArray);
+        }
+        else if (displayOption == "list") {
+            listVisitHelper(searchArray);
+        }
+    }
+}
 
 /** LIST HEALTH WORKERS OPTION **/
 
@@ -428,14 +458,26 @@ function visitInit() {
     if (mapDisplay == true) {
         $("#map").hide();
         $("#worker").show();
-        mapDisplay = false;
     }
+    
+    mapDisplay = false;
 }
 
 function listWorkers() {
     $("#loading").hide();
     
-    var workerArray2 = JSON.parse(window.localStorage.getItem("workerArray"));
+    var searchBar = document.getElementById("search");
+    var firstNameSearch = document.getElementById("firstNameSearch");
+    var lastNameSearch = document.getElementById("lastNameSearch");
+    searchBar.addEventListener("input", searchAndDisplay("list"));
+    firstNameSearch.addEventListener("click", searchAndDisplay("list"));
+    lastNameSearch.addEventListener("click", searchAndDisplay("list"));
+    
+    var workerArray = JSON.parse(window.localStorage.getItem("workerArray"));
+    listVisitHelper(workerArray);
+}
+
+function listVisitHelper(workerArray2){
     var content = document.getElementById("content");
     
     content.innerHTML = "";
@@ -487,8 +529,20 @@ function locateInit() {
 
 function locateWorkers() {    
     $("#loading").hide();
+        
+    var searchBar = document.getElementById("search");
+    var firstNameSearch = document.getElementById("firstNameSearch");
+    var lastNameSearch = document.getElementById("lastNameSearch");
     
-    var workerArray2 = JSON.parse(window.localStorage.getItem("workerArray"));
+    searchBar.addEventListener("input", searchAndDisplay("locate"));
+    firstNameSearch.addEventListener("click", searchAndDisplay("locate"));
+    lastNameSearch.addEventListener("click", searchAndDisplay("locate"));
+    
+    var workerArray = JSON.parse(window.localStorage.getItem("workerArray"));
+    locateWorkerHelper(workerArray);
+}
+
+function locateWorkerHelper(workerArray2) {
     var listContent = document.getElementById("content");
     
     content.innerHTML = "";
@@ -503,7 +557,7 @@ function locateWorkers() {
         
         var infoDiv = document.createElement("div");
         infoDiv.className = "locateInfo";
-        infoDiv.innerHTML = tempWorker.ID + ": " + tempWorker.lastName + ", " + tempWorker.firstName;
+        infoDiv.innerHTML = tempWorker.ID + ": " + tempWorker.firstName + " " + tempWorker.lastName;
         var locateDiv = document.createElement("div");
         locateDiv.className = "locateSubmit";
         locateDiv.id = "locate"+tempWorker.ID;

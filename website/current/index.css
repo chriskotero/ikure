@@ -274,6 +274,7 @@ padding-top: 15px;
 }
  
 .listChoicesBar {
+	height: 12%;
 }
 
 .listChoices {
@@ -282,6 +283,7 @@ padding-top: 15px;
 	border-top-right-radius: 10px;
 	text-align: center;
 	width: 47%;
+	height: auto;
 	padding-left: 1%;
 	padding-right: 1%;
 }
@@ -292,6 +294,31 @@ padding-top: 15px;
 
 .left {
 	float: left;
+}
+
+#listSearchBar {
+	width: 98%;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+#search {
+	width: 98%;
+	display: block;
+    overflow: hidden;
+}
+
+#search[placeholder] {
+	font-size: medium;
+}
+
+#searchOptions {
+	position:relative;
+	text-align: center;
+	margin-top: 2%;
+	margin-bottom: 2%;
 }
 
 #listContent {

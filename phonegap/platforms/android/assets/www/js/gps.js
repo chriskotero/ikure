@@ -99,7 +99,7 @@ function loadFromInternalStorage(){
         start.innerHTML = startTime;
         stop.innerHTML = stopTime;
         
-        sendLocation(); //send initial location onDeviceReady if during update time
+        sendLocation(true); //send initial location onDeviceReady if during update time
         timeInterval = setInterval(function() {sendLocation(true)}, frequency); //initialize tracking intervals
     }
 }
@@ -137,33 +137,35 @@ function sendLocation(sendLoc) {
     currentTime = h + ':' + m;
     
     console.log("currentTime = " + currentTime);
+    console.log("startTime = " + startTime);
+    console.log("stopTime = " + stopTime);
     
     //send location if during tracking time
     if (stopTime < startTime) { //location tracking stopTime is midnight or later
         if ((currentTime < stopTime && currentTime >= "0:00") || (currentTime >= startTime && currentTime <= "23:59")) {
             trackingOn();
             if(sendLoc){
+                console.log("1: sending location");
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);   //get location
-                console.log("sending location");
             }
         }
         else {
             trackingOff();
-            console.log("not tracking time");
+            console.log("2: not tracking time");
         }
     }
     else {
         if (currentTime >= startTime && currentTime < stopTime) { //stopTime is before midnight
             trackingOn();
             if(sendLoc){
-                window.navigator.geolocation.getCurrentPosition(onSuccess, onError);   //get location
-                console.log("sending location");
+                console.log("3: sending location");
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);   //get location
             }
         }
         
         else {  //disable location tracking - clear timeInterval, set timeOut until startTime
             trackingOff();
-            console.log("not tracking time");
+            console.log("4: not tracking time");
         }
     }
 }

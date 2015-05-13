@@ -26,7 +26,7 @@ body {
 
 
 
-/***************login page ************/
+/***************homescreen ************/
 
 #container {
 	width: 50%;
@@ -54,13 +54,63 @@ body {
 	height: 50%;
 }
 .login {
-	font-size: 1.4em;
+	font-size: 1em;
 	clear: both;
 	margin-left: 22%;
 	margin-bottom: 1%;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+
+
+#password {
+
+background: url('img/passwordIcon.png') right no-repeat;
+width:80%; 
+height: 30px; 
+padding: 5px; 
+font-size: 16px; 
+margin-left: 18px; 
+border-bottom-left-radius: 7px; 
+border-bottom-right-radius: 7px; 
+background-color: #E4E4E4; 
+color: #5E5E5E;
+}
+
+
+
+#username {
+background: url('img/loginicon.png') right no-repeat;
+width:80%; 
+height: 30px; 
+padding: 5px; 
+font-size: 16px; 
+margin-left: 18px; 
+border-top-left-radius: 7px; 
+border-top-right-radius: 7px; 
+background-color: #E4E4E4; 
+color: #5E5E5E;
+}
+
+
+#track_title {
+	display: block;
+	font-size: 2em;
+	margin-left: 10%;
+	margin-bottom: 8%;
+	margin-top: 6%;
+	
+}
+
+.track {
+	float: left;
+	margin-left: 5%;
+	display: block;
+}
+
+#track_cont {
+	margin-left: 5%;
+}
 
 .btn {
   background: #b3a314;
@@ -105,6 +155,12 @@ h1 {
     overflow:visible;
     padding:0px;
     text-align:center;
+}
+
+#trackingStatus {
+	font-size: 2em;
+	color: white;
+
 }
 
 .event {
