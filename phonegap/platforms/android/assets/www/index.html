@@ -25,31 +25,30 @@
     <title>iKure Health Worker Location Tracker</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-    
+    <link rel="stylesheet" type="text/css" href="css/index.css">
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/index.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/serverVariables.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/device.js"></script>
   </head>
   <body>
-    <h1>ASSIGN DEVICE</h1>
-    <br />    
-      <td>First Name: </td>
-      <td><input type="text" id="firstName" name="firstName"/></td>
-      <td>Last Name: </td>
-      <td><input type="text" id="lastName" name="lastName"/></td>
-      <td>Tracking Start Time: </td>
-      <td><input type="time" id="startTime" name="starTime" value="08:00"/></td>
-      <td>Tracking Stop Time: </td>
-      <td><input type="time" id="stopTime" name="stopTime" value="18:00"/></td>
-      <td>Location Update Interval (minutes):
-        <br>(short times will have a negative effect on battery life)</td>
-      <td><input type="number" id="frequency" name="frequency" value="60"/></td>
-      
+    <table>
+      <tr><p class="settings_title">ASSIGN DEVICE </p> </tr>
+      <tr><div class="sub">First Name: </tr>
+      <tr><input type="text" id="firstName" placeholder="enter first name here..."class="names" name="firstName"/></tr>
+      <tr><div class="sub">Last Name: </div></tr>
+      <tr><input type="text" id="lastName" class="names" placeholder="enter last name here..." name="lastName"/></tr>
+      <tr> <div class="sub">Tracking Start Time: </div> </tr>
+      <tr><input type="time" id="startTime" name="starTime" value="08:00"/></tr>
+      <tr><div class="sub">Tracking Stop Time:</div> </td>
+      <tr><input type="time" id="stopTime" name="stopTime" value="18:00"/></tr>
+      <tr><div class="sub">Pick Location Update Interval (minutes):
+        <br><em style="font-size: .7em">Note: short times will have a negative effect on battery life</em></div></tr> 
+      <tr><input type="number" class="lastsub" id="frequency" name="frequency" value="60"/></tr>
+    </table>  
       <br />
       
-      <button id="submit">Submit</button>      
+      <button id="submit" class="btn_set">Submit</button>      
   </body>
 </html>

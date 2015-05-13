@@ -1,72 +1,101 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-* {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+
+html {
+
+	font-size: 100%;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
+
+
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
+             /* prevent copy paste, to allow, change 'none' to 'text' */
+	font-family: Arial, Helvetica, sans-serif;
     height:100%;
     margin:0px;
     padding:0px;
     text-transform:uppercase;
     width:100%;
+    background: url("../img/background_app.png") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 /* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
+
+
+
+/***************login page ************/
+
+#container {
+	width: 50%;
+	margin-top: 10%;
+	border-radius: 10px;
+	background-color: #E0E0E0;
+	margin-left: auto;
+	min-height: 180px;
+	margin-right: auto;
+	display: block;
+	padding-top: 4%;
+	padding-bottom: 2%;	
+	-moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+	-webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+	box-shadow: 3px 4px 3px rgba(0,0,0,.5);
+
+
+}
+.logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 3%;
+	width: 60%;
+	height: 50%;
+}
+.login {
+	font-size: 1.4em;
+	clear: both;
+	margin-left: 22%;
+	margin-bottom: 1%;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-    }
+
+.btn {
+  background: #b3a314;
+  background-image: -webkit-linear-gradient(top, #b3a314, #cae08d);
+  background-image: -moz-linear-gradient(top, #b3a314, #cae08d);
+  background-image: -ms-linear-gradient(top, #b3a314, #cae08d);
+  background-image: -o-linear-gradient(top, #b3a314, #cae08d);
+  background-image: linear-gradient(to bottom, #b3a314, #cae08d);
+  -webkit-border-radius: 13;
+  -moz-border-radius: 13;
+  border-radius: 10px;
+  display: block;
+  font-family: Arial;
+  margin-left: auto;
+  margin-right: auto;
+  color: #ffffff;
+  font-size: 1em;
+  width: 50%;
+  padding: 8px;
+  text-decoration: none;
+  margin-bottom: 2%;
+}
+
+.btn:hover {
+  background: #6b6b2e;
+  text-decoration: none;
+}
+.user_pass {
+	border: 1px solid black;
+	display: block;
+	margin-left: 22%;
+	margin-bottom: 1%;
+	min-width: 55%;
+	min-height: 25px;
+
 }
 
 h1 {
@@ -112,4 +141,152 @@ h1 {
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
+}
+
+
+
+/************* ADMIN SETTINGS **************/
+
+
+#startTime {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	height: 30px;
+	background-color: white;
+	padding: 8px; 
+	font-size: 1.8em;
+	
+}
+
+#stopTime {
+	width: 80%;
+	height: 30px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+	padding: 8px; 
+	font-size: 1.8em;
+
+
+}
+p.settings_title {
+	font-family: Arial;
+	color: white;
+	font-weight: bold;
+	width:80%; 
+	min-height: 1.7em; 
+	padding: 10px; 
+	font-size: 1.4em; 
+	border-top-left-radius: 7px; 
+	border-top-right-radius: 7px; 
+	background-color: #b3a314; 
+	margin-top: 10%;
+	color: #5E5E5E;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0;
+}
+}
+#settings_container {
+	padding: 5%;
+}
+
+.sub {
+	font-size: 1.2em;
+	font-family: Arial;
+	background-color: #A0A0A0; 
+	color: white;
+	width:80%; 
+	min-height: 30px; 
+	padding: 10px; 
+	padding-top: 2%;
+	font-size: 16px; 
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	vertical-align: middle;
+
+}
+
+
+.lastsub {
+	width: 80%;
+	height: 30px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+	padding: 8px; 
+	font-size: 1.8em;
+}
+
+
+
+.btn_set {
+  background: #b3a314;
+  background-image: -webkit-linear-gradient(top, #b3a314, #cae08d);
+  background-image: -moz-linear-gradient(top, #b3a314, #cae08d);
+  background-image: -ms-linear-gradient(top, #b3a314, #cae08d);
+  background-image: -o-linear-gradient(top, #b3a314, #cae08d);
+  background-image: linear-gradient(to bottom, #b3a314, #cae08d);
+  -webkit-border-radius: 13;
+  -moz-border-radius: 13;
+  border-radius: 10px;
+  font-family: Arial;
+  margin-left: 60%;
+  display: inline-block;
+  color: #ffffff;
+  font-size: 1em;
+  width: 30%;
+  min-height: 3em;
+  padding: 8px;
+  text-decoration: none;
+  margin-bottom: 4%;
+}
+
+.btn_set:hover {
+  background: #6b6b2e;
+  text-decoration: none;
+}
+
+.btn_3 {
+  background: #00CC33 ;
+  -webkit-border-radius: 13;
+  -moz-border-radius: 13;
+  border-radius: 10px;
+  font-family: Arial;
+  margin-left: 10%;
+  display: inline-block;
+  color: #ffffff;
+  font-size: 1em;
+  width: 30%;
+  min-height: 3em;
+  padding: 8px;
+  text-decoration: none;
+  margin-bottom: 4%;
+}
+
+.btn_3:hover {
+  background: #6b6b2e;
+  text-decoration: none;
+}
+
+.names {
+	font-size: 1.2em;
+	font-family: Arial;
+	background-color: white; 
+	color: black;
+	width:80%; 
+	min-height: 30px; 
+	padding: 8px; 
+	padding-top: 2%;
+	font-size: 16px; 
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	vertical-align: middle;
 }

@@ -42,13 +42,6 @@ function verifyAdmin() {
     function(data){
         console.log(data);
         if (data != -1) {   //valid admin credentials
-            
-            /*
-            window.localStorage.clear();    //clear local storage
-            window.clearInterval(timeInterval); //clears location update interval
-            bgGeo.stop();   //stops background location tracking
-            window.location = "index.html"; //redirect to index.html for device reassignment
-            */
             console.log("admin verified");
             window.location = "adminSettings.html";
         }

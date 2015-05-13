@@ -32,6 +32,9 @@ function loadFromInternalStorage(){
     stopTime = window.localStorage.getItem("stopTime");
     frequency = window.localStorage.getItem("updateFrequency");
     
+    if (startTime == null) {
+        window.location = "index.html";
+    }
     readableFreq = frequency / (1000*60);
     
     console.log("startTime = " + startTime);
