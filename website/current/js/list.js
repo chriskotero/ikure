@@ -448,7 +448,7 @@ function listWorkers() {
         
         var infoDiv = document.createElement("div");
         infoDiv.className = "listInfo";
-        infoDiv.innerHTML = tempWorker.ID + ": " + tempWorker.lastName + ", " + tempWorker.firstName;
+        infoDiv.innerHTML = tempWorker.ID + ": " + tempWorker.firstName + " " + tempWorker.lastName;
         var listDiv = document.createElement("div");
         listDiv.className = "listSubmit";
         listDiv.id = "list"+tempWorker.ID;
