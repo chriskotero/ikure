@@ -15,7 +15,8 @@ body {
     padding:0px;
     text-transform:uppercase;
     width:100%;
-    background: url("../img/background_app.png") no-repeat center center fixed; 
+    background: url("../img/background_app.png");
+    background-size: cover; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -160,6 +161,7 @@ h1 {
 #trackingStatus {
 	font-size: 2em;
 	color: white;
+	margin-left: 2%;
 
 }
 
@@ -199,7 +201,25 @@ h1 {
     -webkit-animation:fade 3000ms infinite;
 }
 
+#startTimeDiv {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	height: 30px;
+	padding: 3px; 
+	font-size: 1.8em;
+}
 
+#stopTimeDiv {
+	width: 80%;
+	height: 30px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 3px; 
+	font-size: 1.8em;
+}
 
 /************* ADMIN SETTINGS **************/
 
@@ -213,7 +233,6 @@ h1 {
 	background-color: white;
 	padding: 8px; 
 	font-size: 1.8em;
-	
 }
 
 #stopTime {
@@ -225,9 +244,8 @@ h1 {
 	background-color: white;
 	padding: 8px; 
 	font-size: 1.8em;
-
-
 }
+
 p.settings_title {
 	font-family: Arial;
 	color: white;

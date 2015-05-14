@@ -93,8 +93,8 @@ function loadFromInternalStorage(){
     }
     else{
         var element = document.getElementById("title");
-        var start = document.getElementById("startTime");
-        var stop = document.getElementById("stopTime");
+        var start = document.getElementById("startTimeDiv");
+        var stop = document.getElementById("stopTimeDiv");
         element.innerHTML = "Hello " + firstName + " " + lastName;
         start.innerHTML = startTime;
         stop.innerHTML = stopTime;
