@@ -61,7 +61,6 @@ function createNewAccount() {
 }
 
 function displayStatus(code) {
-console.log("test");
     var status = document.getElementById("status");
     
     if (code == -1) {   //already exists

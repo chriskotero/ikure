@@ -9,9 +9,6 @@
 	</head>
 	<body style="background: url('img/backgroundMain.png') no-repeat; background-size: cover">		
 		<div id="wrapper"> 
-		<div id="list_block"> 
-		
-		</div>
 			<div id="nav_wrapper">
 				<div id="nav">
 					<ul> 
@@ -24,29 +21,27 @@
 			</div>
 			<div id="locatePeopleList">
 				<div class="listChoicesBar">
-				    <div id="choices">
-					<div class="listchoicesdiv" id="listWorkers">
-						<p> List Health Workers <span style="color: white">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | </span></p>
+					<div class="listChoices left" id="listWorkers">
+						<p> List Health Workers </p>
 					</div>
-					<div class="listchoicesdiv" id="locateWorkers"> 
+					<div class="listChoices right" id="locateWorkers"> 
 						<p> Locate Nearest </p>
 					</div>
-				    </div>
 				</div>
 				<div id="listSearchBar">
-					<input type="text" id="search" placeholder=" Worker Name" name="search"/>
+					<input type="text" id="search" placeholder="Worker Name" name="search"/>
 					<div id="searchOptions">
 						Search By: 
 						<input type="radio" name="searchChoice" value="firstName" id="firstNameSearch" checked /> First Name
 						<input type="radio" name="searchChoice" value="lastName" id="lastNameSearch" /> Last Name
+
 					</div>
 				</div>
-			  
 				<div id="listContent">
 					<div style="display:none" id="loading"><img src="img/loader.gif"/></div>
 					<div id="content"></div>
 				</div>
-			</div> 
+			</div>
 			<div id="container">
 				<div id="map" style="display:none"></div>
 				<div id="worker"></div>
