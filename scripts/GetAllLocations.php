@@ -58,7 +58,7 @@
         }
         //echo "</p>";
     }
-    else echo "no locations stored";
+    else echo "-1";
     
     $conn->close();
 ?>
