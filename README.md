@@ -13,9 +13,9 @@ In order for everything to function properly, you must already have a web server
 <h5>Database and Website</h5>
 <ul> - Move all files from the /scripts directory and the /website directory to your server</ul>
 <ul> - Go into your mysql database and import the "mysql_db.txt" file, ensuring the format is set to "SQL"</ul>
-<ul> - There are several changes that need to be made once your database is setup</ul>
-<ul><ul>    - In "DatabaseCredentials.php" input the required information to access the mysql database</ul></ul>
-<ul>    - In the /website directory, "serverVariables.js" file, change the serverURL value to the url where you hosted the php scripts (don't forget to add the "/" at the end of the url)</ul>
+<ul> - There are a couple changes that need to be made once your database is setup</ul>
+<ul><ul> 1. In "DatabaseCredentials.php" input the required information to access the mysql database</ul></ul>
+<ul><ul> 2. In the /website directory, "serverVariables.js" file, change the serverURL value to the url where you hosted the php scripts (don't forget to add the "/" at the end of the url)</ul></ul>
 <br>
 Once this is complete and all information entered is correct, the database and website should be functioning correctly <br>
 
