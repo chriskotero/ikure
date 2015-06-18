@@ -19,10 +19,10 @@ In order for everything to function properly, you must already have a web server
 <br>
 Once this is complete and all information entered is correct, the database and website should be functioning correctly <br>
 
-<h5>Mobile Application:<h5>
+<h5>Mobile Application</h5>
 Installation of the mobile application is quite simple.  The actual application file (CordovaApp-debug.apk) is located in /phonegap/platforms/android/ant-build.  The application requires no changes to be made, however downloading the entire phonegap project allows for future changes if desired.  Before installing, ensure the device settings allow applications to be installed from unknown sources.<br>
 The application can be installed on an android device in a couple ways:<br>
-<ol>Downloaded from the web (i.e. as an email attachment, dropbox, etc.)</ol>
-<ol>USB connection - using either phonegap or the adb, the .apk file can be installed on the connected device</ol>
+<ol>1. Downloaded from the web (i.e. as an email attachment, dropbox, etc.)</ol>
+<ol>2. USB connection - using either phonegap or the adb, the .apk file can be installed on the connected device</ol>
 
 
