@@ -18,17 +18,10 @@
     $userLong = $_REQUEST["longitude"];
     $userLat = $_REQUEST["latitude"];
     
-    /*DEBUG LOG*/
-    /*
-    $file = 'foregroundLog.txt';
-    $fileString = "deviceID: $deviceID, userLong: $userLong, userLat: $userLat \n";
-    file_put_contents($file, $fileString, FILE_APPEND | LOCK_EX);
-    */
     $ID = -1;
     $firstName = "";
     $lastName = "";
     
-    /* SHOULDN'T NEED ASSIGN TEST DURING ACTUAL OPERATION SINCE SAVELOCATION ONLY OCCURS AFTER DEVICE ASSIGNMENT */
     $sql = "SELECT ID, firstName, lastName FROM DeviceWorkerList WHERE deviceID='$deviceID'";
     $result = $conn->query($sql);
     
@@ -73,6 +66,7 @@
                     $sql = "UPDATE WorkerLocations SET userLocation=POINT('$userLong','$userLat'), timeStamp=CURRENT_TIMESTAMP WHERE ID='$ID'";
                     $conn->query($sql);
                     //echo "location successfully updated";
+                    
                     echo 0;   //success
                }
                else{
@@ -82,6 +76,11 @@
           }
         }
     }
+    
+    //automatically delete all route data older than 2 weeks
+    $sql = "DELETE FROM WorkerRoutes WHERE timestamp < DATE_SUB(NOW(), INTERVAL 14 DAYS)";
+    $conn->query($sql);
+
     
     $conn->close();  
 ?>

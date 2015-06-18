@@ -18,7 +18,7 @@
     $username = $_REQUEST["username"];
     $password = $_REQUEST["password"];
     
-    $sql = "SELECT adminID FROM Accounts WHERE firstName = '$firstName' AND lastName = '$lastName' AND phoneNumber = '$phoneNumber'";
+    $sql = "SELECT adminID FROM Accounts WHERE username='$username'";
     $result = $conn->query($sql);
     
     if($result->num_rows > 0){  //admin account for that person already exists

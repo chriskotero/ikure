@@ -65,7 +65,7 @@ console.log("test");
     var status = document.getElementById("status");
     
     if (code == -1) {   //already exists
-        status.innerHTML = "Admin account for that person already exists";
+        status.innerHTML = "Admin account for that username already exists";
     }
     else if (code == 1) {   //successfully added
         status.innerHTML = "New admin account created";

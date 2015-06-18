@@ -4,6 +4,7 @@
  * 
  */
 //var serverURL = "http://students.engr.scu.edu/~mmaeshir/ikure/";
+var serverURL = "";
 var startTime;
 var stopTime;
 var updateFrequency = -1;
@@ -36,6 +37,10 @@ function onDeviceReady() {
         window.location = "homescreen.html";
     }
     
+    serverURL = window.localStorage.getItem("serverURL");
+    if (serverURL != null) {
+      document.getElementById("serverURL").value == serverURL;
+    }
     navigator.geolocation.getCurrentPosition(onSuccess, onError);   //initialize variables & tracking
 }
 
@@ -58,13 +63,14 @@ function onError(error) {
 function assignDevice(){
     console.log("Assign Device");
     
-    var serverURL = window.localStorage.getItem("serverURL");
+    //var serverURL = window.localStorage.getItem("serverURL");
     var scriptName = window.localStorage.getItem("assignDeviceScript");
     
     if (scriptName == null) {
         console.log("error loading assignDevice script name");
     }
     
+    serverURL = document.getElementById('serverURL').value;
     firstName = document.getElementById('firstName').value;
     lastName = document.getElementById('lastName').value;
     startTime = document.getElementById('startTime').value;
