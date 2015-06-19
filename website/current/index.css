@@ -111,16 +111,12 @@ color: #5E5E5E;
 
 
 #login {
-	padding-top: 5%;;
+	position: absolute;
+	right:60px; 
+	top:28%; 
 	width: 21%;
 	overflow: auto;
-	background: #F6F6F6;
 	font-family: Myriad Pro, Times New Roman, Verdana;
-	border: 1px solid black;
-	padding-bottom: 4%;
-	float: right;
-	margin-right: 5%;
-	
 }
 
 
@@ -561,5 +557,3 @@ overflow: auto;
 	visibility: hidden;
 }
 /********************END LIST PAGE***********************/
-
- 
