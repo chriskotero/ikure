@@ -7,18 +7,15 @@
 		<script type="text/javascript" src="js/serverVariables.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 	</head>
-	<body style="background: url('img/homepagepic.png'); background-size: cover;"> 
-		<div style="width:60%; background: none; height: 500px; float: left;"></div>
+	<body> 
 		<div id="login">
 			<form action="VerifyLogin.php" method="POST">
 				<tr>
 					<input type="text" id="username"name="username" placeholder="username"/>
-					</br>
 				</tr>
 					<input type="password" id="password" name="password" placeholder="password" onkeypress="enterPressed()"/>
-					</br> </br>
-					<a href="forgotPassword.html" style="text-decoration: none; color: gray; margin-left:50%;"> <em> forgot password </em> </a>
-					<a href="#" id="signIn" style="text-decoration: none"><div class="btn"><center>Sign In </center></div> </a>
+					<div class="btn"><a href="#" id="signIn" style="text-decoration: none">Sign In</a></div>
+					<a id="forgotPassword" href="forgotPassword.html"> Forgot Password? </a>
 			</form>
 		</div>
 	</body>
