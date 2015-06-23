@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+    
+<html>
+<head>
+    <title>Settings</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/adminSettings.js"></script>
+</head>
+<body>
+	<div id="settings_container">
+    <p class="settings_title">Settings</p>
+    <table>
+        <tr> <div class= "sub">Tracking Start Time:  </div>
+        <input type="time" id="startTime" name="starTime" value=""/></tr>
+        <tr><div class="sub">Tracking Stop Time: </p></tr>
+        <tr><input type="time" id="stopTime" name="stopTime" value=""/></tr>
+        <tr><div class="sub">Pick Location Update Interval (in minutes): </br>
+ 		<em style="font-size: .7em">Note: short times will have a negative effect on battery life)</em></div>
+        <input type="number" class="lastsub" id="frequency" name="frequency" value="60"/></tr>
+	</table>
+    <br />
+    <br />
+    <button class="btn_set" id="reassign">Reassign Device</button> 
+    <span id="reassignConfirmation" style="display:none">
+        <p style="font-size: 3em; color: white; margin-left: 10%"> Reassign Device?</p>
+        <button id="yes" class="btn_3">Yes</button>
+        <button id="no" class="btn_3">Cancel</button>
+    </span>
+
+    <button id="saveAndExit" class="btn_set">Save and Exit</button>
+    </div>
+</body>
+</html>

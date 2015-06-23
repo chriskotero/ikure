@@ -27,12 +27,12 @@
     $sql = "SELECT * FROM Accounts WHERE username = '$username' AND password = '$password'";
     $result = $conn->query($sql);
     
-    if(!is_null($result) && !empty($result) && $result->num_rows > 0){
-        while($row = $result->fetch_assoc()) {
-            $userID = $row["adminID"];
+        if(!is_null($result) && !empty($result) && $result->num_rows > 0){
+                while($row = $result->fetch_assoc()) {
+                    $userID = $row["adminID"];
+                }
         }
-    }
-
+        
     echo $userID;
     
     $conn->close();

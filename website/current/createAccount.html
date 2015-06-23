@@ -20,75 +20,19 @@
 						</ul>
 				</div>
 			</div> <!--end nav_wrapper-->
-			<div id="createAccountBox">
 			<p style="font-size: 18px"> To create an account, please complete the following form: </p>
-				<form method="POST">
-					<div id="createAccountLeft">
-						<table>
-							<tr>
-						<td>
-							First Name: 
-						</td>	
-						<td>
-							<input id="firstName" type="text" name="firstName"  style="width:150px; height: 20px; padding: 5px; margin-bottom: 10px; font-size: 16px; margin-left: 10px; border-radius: 4px; color: #5e5e5e; background-color: #E4E4E4" />
-							</br>
-						</td>
-							</tr>
-							<tr>
-						<td>
-							Last Name: 
-						</td>
-						<td>
-							<input id="lastName" type="text" name="lastName"  style="width:150px; height: 20px; padding: 5px; margin-bottom: 10px; font-size: 16px; margin-left: 10px; border-radius: 4px; color: #5e5e5e; background-color: #E4E4E4" />
-							</br>
-						</td>
-							</tr>
-							<tr>
-						<td>
-							Phone Number: 
-						</td>
-						<td>	
-							<input id="phoneNumber" type="text" name="phoneNumber"  style="width:150px; height: 20px; padding: 5px; margin-bottom: 10px; font-size: 16px; margin-left: 10px; border-radius: 4px; color: #5e5e5e; background-color: #E4E4E4" />
-							</br>
-						</td>
-							</tr>
-						</table>
-					</div>
-					<div id="createAccountRight">
-						<table>
-							<tr>
-								<td>
-									Username: 
-								</td>
-								<td>
-									<input id="username" type="text" name="newUsername"  style="width:150px; height: 20px; padding: 5px; margin-bottom: 10px; font-size: 16px; margin-left: 10px; border-radius: 4px; color: #5e5e5e; background-color: #E4E4E4" />
-									</br>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Password: 
-								</td>
-								<td>	
-									<input id="password" type="text" name="newPassword" style="width:150px; height: 20px; padding: 5px; font-size: 16px; margin-bottom: 10px; margin-left: 10px; border-radius: 4px; background-color: #E4E4E4; color: #5E5E5E;"/>
-									</br>
-								</td>
-							</tr>
-							<tr>
-								<td>					
-									Re-enter Password: 
-								</td>
-								<td>	
-									<input id="passwordConf" type="text" name="passwordReenter"  style="width:150px; height: 20px; padding: 5px; margin-bottom: 10px; font-size: 16px; margin-left: 10px; border-radius: 4px; color: #5e5e5e; background-color: #E4E4E4" />
-									</br>
-								</td>
-							</tr>
-						</table>
+				<form class="createAccountForm" method="POST">
+					<div class="multiFieldForm"> 
+							<input placeholder="First Name" class="inputField" type="text" name="firstName"/>
+							<input placeholder="Last Name" class="inputField" type="text" name="lastName"/>
+							<input placeholder="Phone Number" class="inputField" type="text" name="phoneNumber"/>
+							<input placeholder="Username" class="inputField" type="text" name="newUsername"/>
+							<input placeholder="New Password" class="inputField" type="text" name="newPassword"/>				
+							<input placeholder="Confirm Password" class="inputField" type="text" name="passwordReenter"/>
 						<div class="createbtn" id="createButton">Create</div>
 						<div id="status" class="accountLeft"> </div>
-				    </div>
-		    	</form>
-			</div><!--end createAccountBox-->
+					</div>
+		    	</form> <!--end Form--> 
 		</div><!--end wrapper-->
 	</body>
 	

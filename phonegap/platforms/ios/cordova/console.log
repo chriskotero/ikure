@@ -1,0 +1,38 @@
+2015-06-22 12:45:45.608 iKure Tracker[13977:1871293] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/crohacz/Library/Developer/CoreSimulator/Devices/7CCF2FC0-D201-4A1E-9264-8922D5E4FFEB/data/Containers/Data/Application/A2E6D327-DD97-4D58-9FD4-37F026C3D504/Library/Cookies/Cookies.binarycookies
+2015-06-22 12:45:46.002 iKure Tracker[13977:1871293] Apache Cordova native platform version 3.8.0 is starting.
+2015-06-22 12:45:46.003 iKure Tracker[13977:1871293] Multi-tasking -> Device: YES, App: YES
+2015-06-22 12:45:46.030 iKure Tracker[13977:1871293] Unlimited access to network resources
+2015-06-22 12:45:46.044 iKure Tracker[13977:1871293] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-06-22 12:45:46.885 iKure Tracker[13977:1871293] Resetting plugins due to page load.
+2015-06-22 12:45:47.454 iKure Tracker[13977:1871293] Finished load of: file:///Users/crohacz/Library/Developer/CoreSimulator/Devices/7CCF2FC0-D201-4A1E-9264-8922D5E4FFEB/data/Containers/Bundle/Application/8AF00C12-42D6-4B22-9EF0-532A4BDD8B8D/iKure%20Tracker.app/www/index.html
+2015-06-22 12:45:47.608 iKure Tracker[13977:1871293] Resetting plugins due to page load.
+2015-06-22 12:45:47.627 iKure Tracker[13977:1871293] locationManager::didFailWithError (null)
+2015-06-22 12:45:49.970 iKure Tracker[13977:1871293] Finished load of: file:///Users/crohacz/Library/Developer/CoreSimulator/Devices/7CCF2FC0-D201-4A1E-9264-8922D5E4FFEB/data/Containers/Bundle/Application/8AF00C12-42D6-4B22-9EF0-532A4BDD8B8D/iKure%20Tracker.app/www/homescreen.html
+2015-06-22 12:45:59.656 iKure Tracker[13977:1871293] Resetting plugins due to page load.
+2015-06-22 12:45:59.760 iKure Tracker[13977:1871293] Finished load of: file:///Users/crohacz/Library/Developer/CoreSimulator/Devices/7CCF2FC0-D201-4A1E-9264-8922D5E4FFEB/data/Containers/Bundle/Application/8AF00C12-42D6-4B22-9EF0-532A4BDD8B8D/iKure%20Tracker.app/www/adminSettings.html
+2015-06-22 12:48:56.527 iKure Tracker[14124:1872615] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/crohacz/Library/Developer/CoreSimulator/Devices/7CCF2FC0-D201-4A1E-9264-8922D5E4FFEB/data/Containers/Data/Application/E5B13283-1BEA-4D04-AE7D-80ABEA1915E7/Library/Cookies/Cookies.binarycookies
+2015-06-22 12:48:56.690 iKure Tracker[14124:1872615] Apache Cordova native platform version 3.8.0 is starting.
+2015-06-22 12:48:56.690 iKure Tracker[14124:1872615] Multi-tasking -> Device: YES, App: YES
+2015-06-22 12:48:56.701 iKure Tracker[14124:1872615] Unlimited access to network resources
+2015-06-22 12:48:56.708 iKure Tracker[14124:1872615] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-06-22 12:48:56.908 iKure Tracker[14124:1872615] Resetting plugins due to page load.
+2015-06-22 12:48:57.154 iKure Tracker[14124:1872615] Finished load of: file:///Users/crohacz/Library/Developer/CoreSimulator/Devices/7CCF2FC0-D201-4A1E-9264-8922D5E4FFEB/data/Containers/Bundle/Application/6EBC1953-8C06-4EE0-B5A2-92DC91409221/iKure%20Tracker.app/www/index.html
+2015-06-22 12:48:57.241 iKure Tracker[14124:1872615] Resetting plugins due to page load.
+2015-06-22 12:48:57.251 iKure Tracker[14124:1872615] locationManager::didFailWithError (null)
+2015-06-22 12:49:05.880 iKure Tracker[14124:1872615] Finished load of: file:///Users/crohacz/Library/Developer/CoreSimulator/Devices/7CCF2FC0-D201-4A1E-9264-8922D5E4FFEB/data/Containers/Bundle/Application/6EBC1953-8C06-4EE0-B5A2-92DC91409221/iKure%20Tracker.app/www/homescreen.html
+2015-06-22 12:49:17.273 iKure Tracker[14124:1872615] Resetting plugins due to page load.
+2015-06-22 12:49:17.420 iKure Tracker[14124:1872615] Finished load of: file:///Users/crohacz/Library/Developer/CoreSimulator/Devices/7CCF2FC0-D201-4A1E-9264-8922D5E4FFEB/data/Containers/Bundle/Application/6EBC1953-8C06-4EE0-B5A2-92DC91409221/iKure%20Tracker.app/www/adminSettings.html

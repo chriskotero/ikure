@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/platforms/android/CordovaLib/CordovaLib.iml" filepath="$PROJECT_DIR$/platforms/android/CordovaLib/CordovaLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/platforms/android/android.iml" filepath="$PROJECT_DIR$/platforms/android/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/cordova-plugin-dialogs/src/cordova-plugin-dialogs.iml" filepath="$PROJECT_DIR$/plugins/cordova-plugin-dialogs/src/cordova-plugin-dialogs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.apache.cordova.device/src/org.apache.cordova.device.iml" filepath="$PROJECT_DIR$/plugins/org.apache.cordova.device/src/org.apache.cordova.device.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.apache.cordova.network-information/src/org.apache.cordova.network-information.iml" filepath="$PROJECT_DIR$/plugins/org.apache.cordova.network-information/src/org.apache.cordova.network-information.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.transistorsoft.cordova.background-geolocation/src/org.transistorsoft.cordova.background-geolocation.iml" filepath="$PROJECT_DIR$/plugins/org.transistorsoft.cordova.background-geolocation/src/org.transistorsoft.cordova.background-geolocation.iml" />
+    </modules>
+  </component>
+</project>

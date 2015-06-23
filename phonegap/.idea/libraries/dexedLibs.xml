@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="dexedLibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/platforms/android/ant-build/dexedLibs/classes-518b3875dcc9cf907bef24a38a30f720.jar!/" />
+      <root url="jar://$PROJECT_DIR$/platforms/android/ant-build/dexedLibs/classes-715d336398abdf45fa02c8937aa57419.jar!/" />
+      <root url="jar://$PROJECT_DIR$/platforms/android/ant-build/dexedLibs/classes-83182070bfc3e9493b779e0b444f1738.jar!/" />
+      <root url="jar://$PROJECT_DIR$/platforms/android/ant-build/dexedLibs/classes-e96553e96f15dd7ebdd54f7d33008539.jar!/" />
+      <root url="jar://$PROJECT_DIR$/platforms/android/ant-build/dexedLibs/classes-9f603239c15edda5f5fee5c60b4e8f3c.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

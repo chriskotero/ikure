@@ -51,6 +51,8 @@ height: 100%;
   border-radius:5px;
   font-size: 16px;
   background-color: #E4E4E4;
+  box-shadow: 3px 4px 10px black;
+
 }
 
 
@@ -64,6 +66,7 @@ height: 100%;
   	border-radius: 5px;
   	font-size: 16px;
   	background-color: #E4E4E4;
+  	box-shadow: 3px 4px 10px black;
 }
 
 
@@ -74,9 +77,9 @@ height: 100%;
 
 
 #login {
-	position:absolute;
-	left:40%;
-	top: 32%;
+	position: absolute;
+  	left: 900px;
+  	top: 316px;
   	width: 315px;
   	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
@@ -89,6 +92,10 @@ height: 100%;
 
 #forgotPassword:hover {
 	color: #417cb8;
+}
+
+#logIn { 
+	padding: 9px 20px;
 }
 
  textarea:-moz-placeholder { color: white;}
@@ -149,49 +156,18 @@ height: 100%;
  
 /*******************CREATE ACCOUNT PAGE************************/
 
- #createAccountBar {
-	width: 74%;
-	background: #D1D1D1;
-	margin-right: auto;
-	margin-left: auto;
-	height: 17px;
-	clear: both;
-	border: 1px solid black;
-}
- 
- #createAccountBox {
-  	width: 70%;
-  	margin: 0 auto;
-  	margin-top: 125px;
-  	height: 268px;
-  	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-}
-
-#createAccountRight { 
-	width: 40%;
-	float: right;
-	margin-right: 20px;
-}
-
-#createAccountLeft{
-	width: 40%;
-	float: left;
-	margin-left: 20px;
-}
 
 .createbtn {
 	text-align: center;
   	color: white;
-  	display: inline-block;
-  	font-size: 18px;
+  	font-size: 22px;
   	border: 1px solid white;
   	border-radius: 5px;
-  	padding: 3px 12px;
+  	padding: 7px 15px;
   	background-color: #4B94B8;
   	text-shadow: -1px 1px #417cb8;
-  	margin-top: 3%;
-  	margin-left: 76%;
 }
+
 .createbtn:hover {
 	background-color: #24749B;
   	cursor: pointer;
@@ -203,16 +179,61 @@ height: 100%;
 	/*top:1px;*/
 }
 
-.accountLeft {
-    margin-right: 10%;
-    float:left;
-    /*margin-top: 10%;*/
-}
-
 #status {
 	font-size: 2em;
 	color: lightGreen;
 }
+
+
+.createAccountForm { 
+	 height: 86%;
+  	width: 550px;
+  	box-sizing: border-box;
+  	padding: 40px;
+  	margin: 0 auto;
+}
+
+.inputField { 
+	height: 50px; 
+	width: 100%; 
+	border-radius: 3px; 
+	box-sizing: border-box; 
+	padding: 10px;
+	margin-bottom: 30px; 
+	margin-right: 41px; 
+}
+
+.inputFiled:focus{ 
+	outline none; 
+	border:rgba(24,149,215,1) 2px solid;
+   	color:rgba(24,149,215,1);
+}
+.createAccountForm label { 
+	display:block;
+	margin: .25em 0; 
+}
+
+.createAccountForm input[type=text]{ 
+	display:block; 
+	padding:.5em .6em; 
+	border: 1px solid #ccc; 
+	box-shadow: inset 0 1px 3px #ddd; 
+	border-radius: 4px;
+	vertical-align: middle; 
+	box-sizing: border-box; 
+	font-size: 17px; 
+	letter-spacing: 3px; 
+}
+
+.multiFieldForm { 
+	margin-top: 60px; 
+}
+
+
+@media only screen and (min-device-width: 728px){ 
+
+
+} 
  /*****end of create account page ********/
 
 /**********horizontal nav bar***************/
@@ -274,35 +295,32 @@ height: 100%;
 
 #locatePeopleList {
 	position: absolute;
- 	 width: 40%;
-  	height: 70%;
+	width: 420px;
+  	height: 550px;
   	background-color: #FFF;
   	border: 1px solid black;
-  	border-radius: 9px;
   	overflow: scroll;
-  	top: 25%;
-  	left: 5%;
+  	top: 200px;
+  	left: 50px;
 }
 
 
 #container {
-	position: absolute;
+	 position: absolute;
   	overflow: hidden;
   	float: right;
   	transform: translateZ(0px);
-  	background-color: rgb(229, 227, 223);
-  	width: 50%;
-  	height: 70%;
-  	left: 48%;
-  	top: 26%;
-    box-shadow: 10px 10px 15px black;
-	text-align: center;
-  
+  	width: 661px;
+  	height: 551px;
+  	left: 489px;
+  	top: 200px;
+  	box-shadow: 4px 3px 15px black;
+  	text-align: center;
 }
 
 #map {
 	height: 100%;
-	width: 100%;
+	width: 60%;
 }
 
 #worker {
@@ -312,22 +330,31 @@ height: 100%;
  
 .listchoicesdiv {
   text-align: center;
-  color: white;
-  display: inline-block;
+  color: black;
+  padding-top: 13px;
   font-size: 18px;
-  border: 1px solid white;
-  border-radius: 5px;
-  padding: 0px 9px;
   background-color: #4B94B8;
-  text-shadow: -1px 1px #417cb8;
-      
+  float: left;
+  height: 50px;
+  width: 210px;
+  box-sizing: border-box;
+  background: #eeeeee;
+  transition: background .4s;
+}
+
+.listchoicesdiv:first-child  { 
+-webkit-border-radius: 5px 0px 0px 0px;
+  border-radius: 5px 0px 0px 0px;
+}
+
+.listchoicesdiv:last-child { 
+-webkit-border-radius: 0px 5px 0px 0px;
+  border-radius: 0px 5px 0px 0px;
 }
 
 .listchoicesdiv:hover {
   background-color: #24749B;
   cursor: pointer;
-  background-color: #346392;
-  text-shadow: -1px 1px #27496d;
   
 }
 
@@ -344,16 +371,22 @@ height: 100%;
 }*/
 
 .listChoiceSelected {
-	background-color: #27496d;
-  	text-shadow: -1px 1px #193047;
+	  background: #fff;
 }
 
 .listChoiceNotSelected {
 }
 
 #choices {
-	width: 100%;
-	margin-left: 10%; 
+  margin-left: 10%;
+  position: relative;
+  top: 15%;
+  height: 70%;
+  width: 450px;
+  margin: 0 auto;
+  background: rgba(255,255,255,1);
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, .45);
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, .45);
 
 }
 .listChoices {
@@ -459,6 +492,10 @@ overflow: auto;
   	color: white;
   	font-size: 16px;
   	background: rgb(218, 148, 62);
+}
+
+.listSubmit:hover { 
+	  background: rgb(205, 133, 45);
 }
 
 .locateSubmit:hover, .listSubmit:hover, .dateSelect:hover {
