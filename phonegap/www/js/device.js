@@ -38,9 +38,6 @@ function onDeviceReady() {
     }
     
     serverURL = window.localStorage.getItem("serverURL");
-    if (serverURL != null) {
-      document.getElementById("serverURL").value == serverURL;
-    }
     navigator.geolocation.getCurrentPosition(onSuccess, onError);   //initialize variables & tracking
 }
 
@@ -70,7 +67,6 @@ function assignDevice(){
         console.log("error loading assignDevice script name");
     }
     
-    serverURL = document.getElementById('serverURL').value;
     firstName = document.getElementById('firstName').value;
     lastName = document.getElementById('lastName').value;
     startTime = document.getElementById('startTime').value;
