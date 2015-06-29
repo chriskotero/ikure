@@ -1,4 +1,4 @@
-//var serverURL = "http://students.engr.scu.edu/~mmaeshir/ikure/";
+var serverURL = "http://students.engr.scu.edu/~mmaeshir/ikure/";
 /*serverURL input during device assignment*/
 var assignDeviceScript = "AssignDevice.php";
 var saveLocationScript = "SaveLocation.php";
@@ -17,7 +17,7 @@ function storeVariables() {
         window.localStorage.getItem("assignDeviceScript") != assignDeviceScript
         || window.localStorage.getItem("saveLocationScript") != saveLocationScript
         || window.localStorage.getItem("verifyLoginScript") != verifyLoginScript) {
-        //window.localStorage.setItem("serverURL", serverURL);
+        window.localStorage.setItem("serverURL", serverURL);
         window.localStorage.setItem("assignDeviceScript", assignDeviceScript);
         window.localStorage.setItem("saveLocationScript", saveLocationScript);
         window.localStorage.setItem("verifyLoginScript", verifyLoginScript);
