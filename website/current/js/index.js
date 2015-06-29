@@ -1,9 +1,10 @@
 $(document).ready(function() {
     checkID(); //checks if cookie is present & valid, if so login
-    
+    /**
     $("#signIn").on("click",function() {    //registers onClick event
         sendRequest();
     });
+    **/
 });
 
 function checkID(){
